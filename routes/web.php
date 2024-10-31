@@ -11,6 +11,7 @@ use App\Http\Controllers\front\AppointmentController;
 Route::get('/',[HomeController::class,"index"]);
 
 Route::get('/contact',[ContactController::class,"index"]);
+Route::post('/send-message',[ContactController::class,"Send_Message"]);
 
 Route::get('/auth',[AuthController::class,"index"]);
 
