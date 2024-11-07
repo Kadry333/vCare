@@ -14,6 +14,16 @@ class ContactController extends Controller
     }
     public function Send_Message(Request $request)
     {
+        //validation
+        $request->validate(
+            [
+                "name"=>["required","string","min:3","max:50"],
+                "email"=>["required","email"],
+                "subject"=>["required","min:3","max:50","string"],
+                "message"=>["required","min:10","max:200"]
+            ]
+            );
+       //connet to DB
        $message = new Message;
        $message->name = $request->name;
        $message->subject = $request->subject;

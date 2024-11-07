@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('password');
             $table->string('image')->nullable();
             $table->enum('role',['admin','doctor','patient'])->default('patient');
-            $table->boolean('is_active')->default('true');
+            $table->boolean('is_active')->default(1);
+            $table->unsignedBigInteger('major_id')->nullable();
+            $table->foreign('major_id')->references('id')->on('majors');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

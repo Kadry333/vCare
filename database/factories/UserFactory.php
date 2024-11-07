@@ -23,9 +23,14 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $roles = ['admin','doctor','patient'];
+        $role = $roles[rand(0,2)];
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
+            'role' => $role,
+            'major_id' => $role == 'doctor' ? rand(1,100) : null,
+            'image' => "doctor.jpeg",
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),

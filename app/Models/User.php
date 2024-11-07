@@ -11,6 +11,10 @@ class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+    public function major()
+    {
+        return $this->belongsTo(Major::class);
+    }
 
     /**
      * The attributes that are mass assignable.
