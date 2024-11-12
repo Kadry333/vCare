@@ -8,18 +8,18 @@ use App\Http\Controllers\front\MajorController;
 use App\Http\Controllers\front\DoctorController;
 use App\Http\Controllers\front\AppointmentController;
 
-Route::get('/',[HomeController::class,"index"]);
+Route::get('/',[HomeController::class,"index"])->name('home');
 
 Route::get('/contact',[ContactController::class,"index"]);
 Route::post('/send-message',[ContactController::class,"Send_Message"]);
 
-Route::get('/auth',[AuthController::class,"index"]);
 
 Route::get('/majors',[MajorController::class,"index"]);
-require_once('admin.php');
+Route::get('/majors/{major}/doctors',[MajorController::class,"doctors"]);
 
 
 Route::get('/doctor',[DoctorController::class,"index"]);
+require_once('admin.php');
+require_once(__DIR__.'/auth.php');
 
-Route::get('/appointment',[AppointmentController::class,"index"]);
 

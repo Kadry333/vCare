@@ -24,172 +24,53 @@
         </div>
         <div class="container">
             <h2 class="h1 fw-bold text-center my-4">majors</h2>
+            <x-success/>
             <div class="d-flex flex-wrap gap-4 justify-content-center">
+                @forelse ($majors as $major)
                 <div class="card p-2" style="width: 18rem;">
                     <img src="{{asset('site')}}/images/major.jpg" class="card-img-top rounded-circle card-image-circle"
                         alt="major">
                     <div class="card-body d-flex flex-column gap-1 justify-content-center">
-                        <h4 class="card-title fw-bold text-center">Major title</h4>
-                        <a href="./doctors/index.html" class="btn btn-outline-primary card-button">Browse Doctors</a>
+                        <h4 class="card-title fw-bold text-center">{{$major->name}}</h4>
+                        <a href="{{url('majors/'.$major->id.'/doctors')}}" class="btn btn-outline-primary card-button ">Browse Doctors</a>
                     </div>
+                    @auth
+                    <a href="{{ url('majors/' . $major->id . '/edit') }}" class="btn btn-outline-info card-button w-100 mb-2 py-2">Edit Major</a>
+                    <form action="{{ url('majors/' . $major->id) }}" method="POST" class="w-100 mb-2" style="display: inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-outline-danger card-button w-100 py-2" >
+                            Delete Major
+                        </button>
+                    </form>
+                    @endauth
                 </div>
-                <div class="card p-2" style="width: 18rem;">
-                    <img src="{{asset('site')}}/images/major.jpg" class="card-img-top rounded-circle card-image-circle"
-                        alt="major">
-                    <div class="card-body d-flex flex-column gap-1 justify-content-center">
-                        <h4 class="card-title fw-bold text-center">Major title</h4>
-                        <a href="./doctors/index.html" class="btn btn-outline-primary card-button">Browse Doctors</a>
-                    </div>
-                </div>
-                <div class="card p-2" style="width: 18rem;">
-                    <img src="{{asset('site')}}/images/major.jpg" class="card-img-top rounded-circle card-image-circle"
-                        alt="major">
-                    <div class="card-body d-flex flex-column gap-1 justify-content-center">
-                        <h4 class="card-title fw-bold text-center">Major title</h4>
-                        <a href="./doctors/index.html" class="btn btn-outline-primary card-button">Browse Doctors</a>
-                    </div>
-                </div>
-                <div class="card p-2" style="width: 18rem;">
-                    <img src="{{asset('site')}}/images/major.jpg" class="card-img-top rounded-circle card-image-circle"
-                        alt="major">
-                    <div class="card-body d-flex flex-column gap-1 justify-content-center">
-                        <h4 class="card-title fw-bold text-center">Major title</h4>
-                        <a href="./doctors/index.html" class="btn btn-outline-primary card-button">Browse Doctors</a>
-                    </div>
-                </div>
-                <div class="card p-2" style="width: 18rem;">
-                    <img src="{{asset('site')}}/images/major.jpg" class="card-img-top rounded-circle card-image-circle"
-                        alt="major">
-                    <div class="card-body d-flex flex-column gap-1 justify-content-center">
-                        <h4 class="card-title fw-bold text-center">Major title</h4>
-                        <a href="./doctors/index.html" class="btn btn-outline-primary card-button">Browse Doctors</a>
-                    </div>
-                </div>
-                <div class="card p-2" style="width: 18rem;">
-                    <img src="{{asset('site')}}/images/major.jpg" class="card-img-top rounded-circle card-image-circle"
-                        alt="major">
-                    <div class="card-body d-flex flex-column gap-1 justify-content-center">
-                        <h4 class="card-title fw-bold text-center">Major title</h4>
-                        <a href="./doctors/index.html" class="btn btn-outline-primary card-button">Browse Doctors</a>
-                    </div>
-                </div>
-                <div class="card p-2" style="width: 18rem;">
-                    <img src="{{asset('site')}}/images/major.jpg" class="card-img-top rounded-circle card-image-circle"
-                        alt="major">
-                    <div class="card-body d-flex flex-column gap-1 justify-content-center">
-                        <h4 class="card-title fw-bold text-center">Major title</h4>
-                        <a href="./doctors/index.html" class="btn btn-outline-primary card-button">Browse Doctors</a>
-                    </div>
-                </div>
-                <div class="card p-2" style="width: 18rem;">
-                    <img src="{{asset('site')}}/images/major.jpg" class="card-img-top rounded-circle card-image-circle"
-                        alt="major">
-                    <div class="card-body d-flex flex-column gap-1 justify-content-center">
-                        <h4 class="card-title fw-bold text-center">Major title</h4>
-                        <a href="./doctors/index.html" class="btn btn-outline-primary card-button">Browse Doctors</a>
-                    </div>
-                </div>
+                @empty
+                <dev class="text-center alert alert-info">There is no majors yet</div>
+
+                @endforelse
+                
             </div>
             <h2 class="h1 fw-bold text-center my-4">doctors</h2>
             <section class="splide home__slider__doctors mb-5">
                 <div class="splide__track ">
                     <ul class="splide__list">
+                        @forelse ($doctors as $doctor)
                         <li class="splide__slide">
                             <div class="card p-2" style="width: 18rem;">
                                 <img src="{{asset('site')}}/images/major.jpg" class="card-img-top rounded-circle card-image-circle"
                                     alt="major">
                                 <div class="card-body d-flex flex-column gap-1 justify-content-center">
-                                    <h4 class="card-title fw-bold text-center">Doctor Name</h4>
-                                    <h6 class="card-title fw-bold text-center">Major</h6>
+                                    <h4 class="card-title fw-bold text-center">{{$doctor->name}}</h4>
+                                    <h6 class="card-title fw-bold text-center">{{$doctor->major->name}}</h6>
                                     <a href="./doctors/doctor.html" class="btn btn-outline-primary card-button">Book an
                                         appointment</a>
                                 </div>
                             </div>
-                        </li>
-                        <li class="splide__slide">
-                            <div class="card p-2" style="width: 18rem;">
-                                <img src="{{asset('site')}}/images/major.jpg" class="card-img-top rounded-circle card-image-circle"
-                                    alt="major">
-                                <div class="card-body d-flex flex-column gap-1 justify-content-center">
-                                    <h4 class="card-title fw-bold text-center">Doctor Name</h4>
-                                    <h6 class="card-title fw-bold text-center">Major</h6>
-                                    <a href="./doctors/doctor.html" class="btn btn-outline-primary card-button">Book an
-                                        appointment</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="splide__slide">
-                            <div class="card p-2" style="width: 18rem;">
-                                <img src="{{asset('site')}}/images/major.jpg" class="card-img-top rounded-circle card-image-circle"
-                                    alt="major">
-                                <div class="card-body d-flex flex-column gap-1 justify-content-center">
-                                    <h4 class="card-title fw-bold text-center">Doctor Name</h4>
-                                    <h6 class="card-title fw-bold text-center">Major</h6>
-                                    <a href="./doctors/index.html" class="btn btn-outline-primary card-button">Browse
-                                        Doctors</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="splide__slide">
-                            <div class="card p-2" style="width: 18rem;">
-                                <img src="{{asset('site')}}/images/major.jpg" class="card-img-top rounded-circle card-image-circle"
-                                    alt="major">
-                                <div class="card-body d-flex flex-column gap-1 justify-content-center">
-                                    <h4 class="card-title fw-bold text-center">Doctor Name</h4>
-                                    <h6 class="card-title fw-bold text-center">Major</h6>
-                                    <a href="./doctors/doctor.html" class="btn btn-outline-primary card-button">Book an
-                                        appointment</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="splide__slide">
-                            <div class="card p-2" style="width: 18rem;">
-                                <img src="{{asset('site')}}/images/major.jpg" class="card-img-top rounded-circle card-image-circle"
-                                    alt="major">
-                                <div class="card-body d-flex flex-column gap-1 justify-content-center">
-                                    <h4 class="card-title fw-bold text-center">Doctor Name</h4>
-                                    <h6 class="card-title fw-bold text-center">Major</h6>
-                                    <a href="./doctors/doctor.html" class="btn btn-outline-primary card-button">Book an
-                                        appointment</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="splide__slide">
-                            <div class="card p-2" style="width: 18rem;">
-                                <img src="{{asset('site')}}/images/major.jpg" class="card-img-top rounded-circle card-image-circle"
-                                    alt="major">
-                                <div class="card-body d-flex flex-column gap-1 justify-content-center">
-                                    <h4 class="card-title fw-bold text-center">Doctor Name</h4>
-                                    <h6 class="card-title fw-bold text-center">Major</h6>
-                                    <a href="./doctors/doctor.html" class="btn btn-outline-primary card-button">Book an
-                                        appointment</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="splide__slide">
-                            <div class="card p-2" style="width: 18rem;">
-                                <img src="{{asset('site')}}/images/major.jpg" class="card-img-top rounded-circle card-image-circle"
-                                    alt="major">
-                                <div class="card-body d-flex flex-column gap-1 justify-content-center">
-                                    <h4 class="card-title fw-bold text-center">Doctor Name</h4>
-                                    <h6 class="card-title fw-bold text-center">Major</h6>
-                                    <a href="./doctors/doctor.html" class="btn btn-outline-primary card-button">Book an
-                                        appointment</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="splide__slide">
-                            <div class="card p-2" style="width: 18rem;">
-                                <img src="{{asset('site')}}/images/major.jpg" class="card-img-top rounded-circle card-image-circle"
-                                    alt="major">
-                                <div class="card-body d-flex flex-column gap-1 justify-content-center">
-                                    <h4 class="card-title fw-bold text-center">Doctor Name</h4>
-                                    <h6 class="card-title fw-bold text-center">Major</h6>
-                                    <a href="./doctors/doctor.html" class="btn btn-outline-primary card-button">Book an
-                                        appointment</a>
-                                </div>
-                            </div>
-                        </li>
+                        </li> 
+                        @empty
+                        <dev class="text-center alert alert-info">There is no doctors for this major yet</div>
+                        @endforelse
                     </ul>
                 </div>
             </section>

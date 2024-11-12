@@ -1,4 +1,6 @@
 <?php
 use App\Http\Controllers\admin\MajorController;
-Route::get('majors/add',[MajorController::class,"create"]);
-Route::post('majors',[MajorController::class,"store"]);
+
+
+Route::resource('majors', MajorController::class)->except(['create','index','show']);
+Route::get('majors/add', [MajorController::class, 'create'])->name('majors.create');

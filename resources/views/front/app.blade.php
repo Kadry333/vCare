@@ -38,10 +38,20 @@
                     <div class="d-flex gap-3 flex-wrap justify-content-center" role="group">
                         <a type="button" class="btn btn-outline-light navigation--button" href="{{url('/')}}">Home</a>
                         <a type="button" class="btn btn-outline-light navigation--button"
-                            href="{{url('/majors')}}">majors</a>
+                            href="{{url('/majors')}}">Majors</a>
                         <a type="button" class="btn btn-outline-light navigation--button"
                             href="{{url('/doctor')}}">Doctors</a>
-                        <a type="button" class="btn btn-outline-light navigation--button" href="./login.html">login</a>
+                        @guest
+                        <a type="button" class="btn btn-outline-light navigation--button" href="{{Route('auth.login')}}">Login</a>
+                        <a type="button" class="btn btn-outline-light navigation--button" href="{{Route('auth.register')}}">Register</a>
+                        @endguest
+                        @auth
+                        <form action="{{ route('auth.logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-light navigation--button">Logout</button>
+                        </form>
+                        @endauth
+                        
                     </div>
                 </div>
             </div>
@@ -69,8 +79,8 @@
                         <a href="{{url('/')}}" class="link text-white">Home</a>
                         <a href="{{url('/majors')}}" class="link text-white">Majors</a>
                         <a href="{{url('/doctor')}}" class="link text-white">Doctors</a>
-                        <a href="{{url('/login')}}" class="link text-white">Login</a>
-                        <a href="{{url('/register')}}" class="link text-white">Register</a>
+                        <a href="{{Route('auth.login')}}" class="link text-white">Login</a>
+                        <a href="{{Route('auth.register')}}" class="link text-white">Register</a>
                         <a href="{{url('/contact')}}" class="link text-white">Contact</a>
                     </div>
                 </div>

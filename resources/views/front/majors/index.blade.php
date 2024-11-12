@@ -8,18 +8,34 @@
                 </ol>
             </nav>
             <div class="row">
+                @auth
                 <div class="col-12 my-2 text-center">
                     <a href="{{url('majors/add')}}" class="btn btn-success">Add Major</a>
                 </div>
+                @endauth
+                <x-success/>
+                
             </div>
             <div class="majors-grid">
             @foreach ($majors as $major)
             <div class="card p-2" style="width: 18rem;">
-                <img src="{{'site/images/'.$major->image}}" class="card-img-top rounded-circle card-image-circle"
+                <img src="{{'uploads/majors/'.$major->image}}" class="card-img-top rounded-circle card-image-circle"
                     alt="major">
                 <div class="card-body d-flex flex-column gap-1 justify-content-center">
                     <h4 class="card-title fw-bold text-center">{{$major->name}}</h4>
-                    <a href="./doctors/index.html" class="btn btn-outline-primary card-button">Browse Doctors</a>
+                    <a href="{{url('majors/' . $major->id . '/doctors')}}" class="btn btn-outline-primary card-button w-100 mb-2 py-2">Browse Doctors</a>
+                    @auth
+                    <a href="{{ url('majors/' . $major->id . '/edit') }}" class="btn btn-outline-info card-button w-100 mb-2 py-2">Edit Major</a>
+                    <form action="{{ url('majors/' . $major->id) }}" method="POST" class="w-100 mb-2" style="display: inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-outline-danger card-button w-100 py-2" >
+                            Delete Major
+                        </button>
+                        @endauth
+                    </form>
+                    
+
                 </div>
             </div>
             @endforeach
