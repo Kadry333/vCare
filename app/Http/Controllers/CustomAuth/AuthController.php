@@ -44,15 +44,17 @@ class AuthController extends Controller
     }
     public function login_store(Request $request)
     {
+        //validation
         $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
 
-        if (Auth::attempt($request->only('email', 'password'))) {
+        if (Auth::attempt($request->only('email', 'password')))//checks if email and password are in the db
+        {
 
-            $request->session()->regenerate();
+            $request->session()->regenerate();//for security
             return redirect()->route('home');
         }
 

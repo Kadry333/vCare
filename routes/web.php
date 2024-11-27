@@ -19,7 +19,12 @@ Route::get('/majors/{major}/doctors',[MajorController::class,"doctors"]);
 
 
 Route::get('/doctor',[DoctorController::class,"index"]);
+Route::get('/appointments/{user}',[AppointmentController::class,"create"])->Middleware('auth')->name('appointments.create');
+Route::post('/appointments/{user}',[AppointmentController::class,"store"])->Middleware('auth')->name('appointments.store');
+
 require_once('admin.php');
 require_once(__DIR__.'/auth.php');
+require_once(__DIR__.'/api.php');
+
 
 

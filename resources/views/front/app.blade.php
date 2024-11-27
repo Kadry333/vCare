@@ -42,7 +42,7 @@
                         <a type="button" class="btn btn-outline-light navigation--button"
                             href="{{url('/doctor')}}">Doctors</a>
                         @guest
-                        <a type="button" class="btn btn-outline-light navigation--button" href="{{Route('auth.login')}}">Login</a>
+                        <a type="button" class="btn btn-outline-light navigation--button" href="{{Route('login')}}">Login</a>
                         <a type="button" class="btn btn-outline-light navigation--button" href="{{Route('auth.register')}}">Register</a>
                         @endguest
                         @auth
@@ -79,8 +79,10 @@
                         <a href="{{url('/')}}" class="link text-white">Home</a>
                         <a href="{{url('/majors')}}" class="link text-white">Majors</a>
                         <a href="{{url('/doctor')}}" class="link text-white">Doctors</a>
-                        <a href="{{Route('auth.login')}}" class="link text-white">Login</a>
+                        @guest
+                        <a href="{{Route('login')}}" class="link text-white">Login</a>
                         <a href="{{Route('auth.register')}}" class="link text-white">Register</a>
+                        @endguest
                         <a href="{{url('/contact')}}" class="link text-white">Contact</a>
                     </div>
                 </div>

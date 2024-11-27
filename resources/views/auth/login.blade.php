@@ -12,7 +12,7 @@
             <div class="mb-3">
             <div class="mb-3">
                 <label for="">Email</label>
-                <input type="email" name="email" id="" class="form-control">
+                <input type="email" name="email" value="{{old('email')}}"id="" class="form-control">
                 <x-error field="email"/>
             </div>
             <div class="mb-3">

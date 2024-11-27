@@ -9,9 +9,11 @@
             </nav>
             <div class="row">
                 @auth
+                @if(auth()->user()->role=="admin")
                 <div class="col-12 my-2 text-center">
                     <a href="{{url('majors/add')}}" class="btn btn-success">Add Major</a>
                 </div>
+                @endif
                 @endauth
                 <x-success/>
                 
@@ -25,6 +27,7 @@
                     <h4 class="card-title fw-bold text-center">{{$major->name}}</h4>
                     <a href="{{url('majors/' . $major->id . '/doctors')}}" class="btn btn-outline-primary card-button w-100 mb-2 py-2">Browse Doctors</a>
                     @auth
+                    @if(auth()->user()->role=="admin"){{--autharization--}}
                     <a href="{{ url('majors/' . $major->id . '/edit') }}" class="btn btn-outline-info card-button w-100 mb-2 py-2">Edit Major</a>
                     <form action="{{ url('majors/' . $major->id) }}" method="POST" class="w-100 mb-2" style="display: inline;">
                         @csrf
@@ -32,6 +35,7 @@
                         <button type="submit" class="btn btn-outline-danger card-button w-100 py-2" >
                             Delete Major
                         </button>
+                        @endif
                         @endauth
                     </form>
                     

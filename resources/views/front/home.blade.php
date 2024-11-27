@@ -35,6 +35,7 @@
                         <a href="{{url('majors/'.$major->id.'/doctors')}}" class="btn btn-outline-primary card-button ">Browse Doctors</a>
                     </div>
                     @auth
+                    @if(auth()->user()->role=="admin")
                     <a href="{{ url('majors/' . $major->id . '/edit') }}" class="btn btn-outline-info card-button w-100 mb-2 py-2">Edit Major</a>
                     <form action="{{ url('majors/' . $major->id) }}" method="POST" class="w-100 mb-2" style="display: inline;">
                         @csrf
@@ -43,6 +44,7 @@
                             Delete Major
                         </button>
                     </form>
+                    @endif
                     @endauth
                 </div>
                 @empty
@@ -57,19 +59,10 @@
                     <ul class="splide__list">
                         @forelse ($doctors as $doctor)
                         <li class="splide__slide">
-                            <div class="card p-2" style="width: 18rem;">
-                                <img src="{{asset('site')}}/images/major.jpg" class="card-img-top rounded-circle card-image-circle"
-                                    alt="major">
-                                <div class="card-body d-flex flex-column gap-1 justify-content-center">
-                                    <h4 class="card-title fw-bold text-center">{{$doctor->name}}</h4>
-                                    <h6 class="card-title fw-bold text-center">{{$doctor->major->name}}</h6>
-                                    <a href="./doctors/doctor.html" class="btn btn-outline-primary card-button">Book an
-                                        appointment</a>
-                                </div>
-                            </div>
+                        <x-DoctorCard :doctor="$doctor" />
                         </li> 
                         @empty
-                        <dev class="text-center alert alert-info">There is no doctors for this major yet</div>
+                        <div class="text-center alert alert-info">There is no doctors for this major yet</div>
                         @endforelse
                     </ul>
                 </div>
