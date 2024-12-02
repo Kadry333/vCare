@@ -15,6 +15,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Major::class);
     }
+    public function appointment()
+    {
+        return $this->belongsTo(appointment::class);
+    }
 
     /**
      * The attributes that are mass assignable.

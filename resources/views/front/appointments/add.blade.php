@@ -30,7 +30,7 @@
         <div class="details-info d-flex flex-column gap-3">
           <h4 class="card-title fw-bold">{{$user->name}} </h4>
           <h6 class="card-title fw-bold">
-            {{$user->major->name}}
+            {{$user->major->name??''}}
           </h6>
         </div>
       </div>

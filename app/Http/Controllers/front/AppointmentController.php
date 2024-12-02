@@ -8,6 +8,8 @@ use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Mail\ConfirmAppointmentMail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Gate;
+
 
 
 class AppointmentController extends Controller
@@ -18,6 +20,11 @@ class AppointmentController extends Controller
     }
     public function create(User $user)
     {
+       /* if($user->role == "patient" || $user->role == "admin")
+        {
+          abort(403);
+        }*/
+          Gate::authorize('make-appointment');
         $user->load('major');
         return view('front.appointments.add', compact('user'));
     }
@@ -36,7 +43,7 @@ class AppointmentController extends Controller
       $appointment->patient_id = auth()->user()->id;
       $appointment->doctor_id = $user->id;
       $appointment->save();
-      Mail::to(auth()->user()->email)->send(new ConfirmAppointmentMail);
+      Mail::to(auth()->user()->email)->send(new ConfirmAppointmentMail($appointment));
       return redirect()->back()->with('success','Your appointment has been saved successfully');
     }
 }

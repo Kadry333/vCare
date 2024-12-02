@@ -5,9 +5,17 @@ namespace App\Http\Controllers\front;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Message;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class ContactController extends Controller
+class ContactController extends Controller implements HasMiddleware
 {
+    public static function middleware():array
+    {
+     return [
+        new middleware('AdminArea',only:['Send_Message'])
+     ];
+    }
     public function index()
     {
         return view('front.contact');
